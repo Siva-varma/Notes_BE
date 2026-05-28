@@ -1,6 +1,7 @@
 import { loginService, registerService } from "../services/auth.service.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
+// ------------- Controller to register the user -------------
 export const registerController = asyncHandler(async (req, res) => {
   let userData = req.body;
   // Call the service to register the user
@@ -17,7 +18,7 @@ export const registerController = asyncHandler(async (req, res) => {
   });
 });
 
-
+// ------------- Controller to login the user -------------
 export const loginController =asyncHandler(async (req,res) => {
   let userData = req.body;
   //Call the login service to login the user
