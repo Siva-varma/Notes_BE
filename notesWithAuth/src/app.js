@@ -22,7 +22,7 @@ app.use('/api/notes', noteRouter)
 
 
 
-
+// global error middleware
 app.use(errorMiddleware)
 
 

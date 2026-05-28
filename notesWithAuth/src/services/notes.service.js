@@ -61,7 +61,7 @@ export const editNotesService = async (userId, noteId, data) => {
   //check is notes exists or not
   let isNoteExists = await noteModel.findById(noteId);
 
-  if (!isNoteExists) throw new apiError(404, "note not found");
+  if (!isNoteExists) throw new apiError(404, "notes not found");
 // update the notes in db
   let updatedNotes = await noteModel.updateOne(
     { _id: noteId },
@@ -71,4 +71,20 @@ export const editNotesService = async (userId, noteId, data) => {
   );
 
   return updatedNotes
+};
+
+
+//service fn to delete the notes
+export const deleteNotesService = async (userId, noteId) => {
+
+
+  //check is notes exists or not
+  let isNoteExists = await noteModel.findById(noteId);
+
+  if (!isNoteExists) throw new apiError(404, "notes not found");
+
+  //delete the notes from db
+  await noteModel.findByIdAndDelete(noteId)
+ return
+
 };

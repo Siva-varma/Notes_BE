@@ -1,5 +1,6 @@
 import {
   createNotesService,
+  deleteNotesService,
   editNotesService,
   getAllNotesService,
 } from "../services/notes.service.js";
@@ -43,6 +44,22 @@ export const editNotesController = asyncHandler(async (req, res) => {
     status: true,
     message: "note edited successfully",
     notes,
+  });
+  t;
+});
+// -------- Controller to edit a notes -------------
+export const deleteNotesController = asyncHandler(async (req, res) => {
+
+  let userId = req.user.id;
+  let noteId = req.params.id;
+
+  // Call the service to delete a notes
+  await deleteNotesService(userId, noteId);
+  
+  // send the res to the User/client
+  return res.status(201).json({
+    status: true,
+    message: "note deleted successfully",
   });
   t;
 });

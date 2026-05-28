@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import apiError from "../utils/apiError.js";
 
+// service to register a user
 export const registerService = async (userData) => {
   //check for all required fields
   if (!userData.name || !userData.email || !userData.password) {
@@ -34,6 +35,8 @@ export const registerService = async (userData) => {
   return { user: newUser, token };
 };
 
+
+//service to login a user
 export const loginService = async (userData) => {
   //check for all required fields
   if (!userData.email || !userData.password) {

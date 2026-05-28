@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { createNotesController, editNotesController, getAllNotesController } from "../controllers/notes.controller.js";
+import {
+  createNotesController,
+  editNotesController,
+  getAllNotesController,
+  deleteNotesController,
+} from "../controllers/notes.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
 
 let noteRouter = Router();
@@ -12,18 +17,23 @@ noteRouter.post("/", authMiddleware, createNotesController);
 
 /**
  * @route Get /api/notes
- * @desc get all notes 
+ * @desc get all notes
  * @access Private protected route
  */
-noteRouter.get('/', authMiddleware, getAllNotesController);
-
+noteRouter.get("/", authMiddleware, getAllNotesController);
 
 /**
  * @route EDIT /api/notes/:id
- * @desc edit Notes
+ * @desc used to edit a Notes
  * @access Private protected route
  */
-noteRouter.patch('/:id', authMiddleware, editNotesController)
+noteRouter.patch("/:id", authMiddleware, editNotesController);
 
+/**
+ * @route DELETE /api/notes/:id
+ * @desc used to delete a Notes
+ * @access Private protected route
+ */
+noteRouter.delete("/:id", authMiddleware, deleteNotesController);
 
 export default noteRouter;
