@@ -36,8 +36,39 @@ export const createNotesService = async (userId, data) => {
 
 // service fn to get all the notes
 export const getAllNotesService = async (userId) => {
-  allNotes = await noteModel.find(userId);
+  let allNotes = await noteModel.find({userId:userId});
   return allNotes;
 };
 
+//service fn to edit the notes
+export const editNotesService = async (userId, noteId, data) => {
+  let description = data.description;
 
+  // ----validations ------
+  if (!description) {
+    return res.status(400).json({
+      status: false,
+      message: "description is required.",
+    });
+  }
+  if (description.trim().length < 10) {
+    return res.status(400).json({
+      status: false,
+      message: "minimum length of description should be more than 10 letters",
+    });
+  }
+
+  //check is notes exists or not
+  let isNoteExists = await noteModel.findById(noteId);
+
+  if (!isNoteExists) throw new apiError(404, "note not found");
+// update the notes in db
+  let updatedNotes = await noteModel.updateOne(
+    { _id: noteId },
+    {
+      description: description,
+    },
+  );
+
+  return updatedNotes
+};
